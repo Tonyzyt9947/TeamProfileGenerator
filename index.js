@@ -94,7 +94,7 @@ function init(){
     .then((answers)=>{
         let newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
         employeeArr.push(newManager)
-        console.log(employeeArr)
+
     })
     .then(()=>{promptMenu()})
     
@@ -106,11 +106,9 @@ function promptMenu(){
     .then((answers)=>{
         switch(answers.menu){
             case 'Engineer':
-                console.log(answers.menu);
                 promptEngineer();
                 break;
             case 'Intern':
-                console.log('aaa');
                 promptIntern();
                 break;
             case 'Finish':
@@ -127,7 +125,6 @@ function promptEngineer(){
     .then((answers)=>{
         let newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
         employeeArr.push(newEngineer)
-        console.log(employeeArr)
     })
     .then(()=>{promptMenu()})
 
@@ -138,14 +135,12 @@ function promptIntern(){
     .then((answers)=>{
         let newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
         employeeArr.push(newIntern)
-        console.log(employeeArr)
     })
     .then(()=>{promptMenu()})
 
 }
 // gathers all employee information and generate cards for html
 function generateCards(){
-    console.log(employeeArr)
     let cards = ``
     employeeArr.forEach(employee => {
         switch(employee.getRole()){

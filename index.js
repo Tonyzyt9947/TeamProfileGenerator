@@ -1,10 +1,12 @@
+// Store required classes and modules
 const inquirer = require('inquirer')
 const fs = require('fs')
 const Manager = require('./lib/manager')
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern')
 
-const startQuestions = [
+// Starting questions (manager information)
+const managerQuestions = [
     {
         type: 'input',
         name: 'name',
@@ -26,7 +28,7 @@ const startQuestions = [
         message: 'Enter the manager\'s office number:',
     }
 ]
-
+// Menu prompt
 const menu = [
     {
         type: 'list',
@@ -35,7 +37,7 @@ const menu = [
         choices:['Engineer','Intern', 'Finish']
     }
 ]
-
+// Engineer Questions
 const engineerQuestions = [
     {
         type: 'input',
@@ -59,7 +61,7 @@ const engineerQuestions = [
     },
 
 ]
-
+// Intern Questions
 const internQuestions = [
     {
         type: 'input',
@@ -83,21 +85,22 @@ const internQuestions = [
     },
 
 ]
-
+// Placeholder array to collect logs of employees
 let employeeArr = []
 
+// Starting function, prompts manager questions, then prompts menu
 function init(){
-    inquirer.prompt(startQuestions)
+    inquirer.prompt(managerQuestions)
     .then((answers)=>{
         let newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
         employeeArr.push(newManager)
         console.log(employeeArr)
     })
     .then(()=>{promptMenu()})
-
     
 }
 
+// prompts menu function, each employee role option invoke corresponding questions, or invoke finish function
 function promptMenu(){
     inquirer.prompt(menu)
     .then((answers)=>{
@@ -118,7 +121,7 @@ function promptMenu(){
 
     )
 }
-
+// prompts engineering questions, returns to menu afterwards
 function promptEngineer(){
     inquirer.prompt(engineerQuestions)
     .then((answers)=>{
@@ -129,7 +132,7 @@ function promptEngineer(){
     .then(()=>{promptMenu()})
 
 }
-
+// prompts intern questions, returns to menu afterwards
 function promptIntern(){
     inquirer.prompt(internQuestions)
     .then((answers)=>{
@@ -140,7 +143,7 @@ function promptIntern(){
     .then(()=>{promptMenu()})
 
 }
-
+// gathers all employee information and generate cards for html
 function generateCards(){
     console.log(employeeArr)
     let cards = ``
@@ -215,7 +218,7 @@ function generateCards(){
     return cards
 }
 
-
+// calls generate cards then generate the html file
 function finish(){
 
     var htmlcards = generateCards()
@@ -251,6 +254,8 @@ ${htmlcards}
     fs.writeFile('./dist/index.html', content, (err) =>
     err ? console.error(err) : console.log('File Created')
     )
+
 }
 
+// initialize application
 init()

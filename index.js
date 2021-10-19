@@ -132,6 +132,75 @@ function promptIntern(){
     promptMenu()
 }
 
+function generateCards(){
+    let cards = ``
+    employeeArr.forEach(employee => {
+        switch(employee.getRole()){
+            case 'Manager':
+                cards=cards+
+`                
+        <div class="card">
+            <div class="card-header">
+                <h3>${employee.name}</h3>
+                <h4>Manager</h4>
+            </div>
+            <div class="card-body">
+                ID:${employee.id}
+            </div>
+            <div class="card-body">
+                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+            </div>
+            <div class="card-body">
+                Office:${employee.officeNumber}
+            </div>
+        </div>
+
+`;
+            case 'Engineer':
+                cards=cards+
+`                
+        <div class="card">
+            <div class="card-header">
+                <h3>${employee.name}</h3>
+                <h4>Engineer</h4>
+            </div>
+            <div class="card-body">
+                ID:${employee.id}
+            </div>
+            <div class="card-body">
+                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+            </div>
+            <div class="card-body">
+                Github:<a target="blank_" href="https://github.com/${employee.github}">${employee.github}</a>
+            </div>
+        </div>
+
+`;     
+
+            case 'Intern':
+                cards=cards+
+`                
+        <div class="card">
+            <div class="card-header">
+                <h3>${employee.name}</h3>
+                <h4>Engineer</h4>
+            </div>
+            <div class="card-body">
+                ID:${employee.id}
+            </div>
+            <div class="card-body">
+                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+            </div>
+            <div class="card-body">
+                School:${employee.school}
+            </div>
+        </div>
+
+`;     
+        }
+    })
+}
+
 let content = 
 `
 <!DOCTYPE html>
@@ -150,7 +219,56 @@ let content =
     </header>
 
     <main class="container">
-        
+                
+        <div class="card">
+            <div class="card-header">
+                <h3>Name</h3>
+                <h4>Manager</h4>
+            </div>
+            <div class="card-body">
+                ID:
+            </div>
+            <div class="card-body">
+                Email:
+            </div>
+            <div class="card-body">
+                Office:
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Name</h3>
+                <h4>Engineer</h4>
+            </div>
+            <div class="card-body">
+                ID: 1
+            </div>
+            <div class="card-body">
+                Email: <a href="mailto: yitianzhang@ucsb.edu">yitianzhang@ucsb.edu</a>
+            </div>
+            <div class="card-body">
+                Github: <a target="blank_" href="https://github.com/Tonyzyt9947">Tonyzyt9947</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Name</h3>
+                <h4>Intern</h4>
+            </div>
+            <div class="card-body">
+                ID:
+            </div>
+            <div class="card-body">
+                Email:
+            </div>
+            <div class="card-body">
+                School:
+            </div>
+        </div>
+
+
     </main>
 
 
@@ -159,6 +277,9 @@ let content =
 `
 
 function finish(){
+
+    generateCards()
+
     fs.writeFile('index.html', content, (err) =>
     err ? console.error(err) : console.log('File Created')
     )

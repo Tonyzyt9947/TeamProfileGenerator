@@ -91,9 +91,11 @@ function init(){
     .then((answers)=>{
         let newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
         employeeArr.push(newManager)
+        console.log(employeeArr)
     })
+    .then(()=>{promptMenu()})
 
-    promptMenu()
+    
 }
 
 function promptMenu(){
@@ -101,11 +103,16 @@ function promptMenu(){
     .then((answers)=>{
         switch(answers.menu){
             case 'Engineer':
+                console.log(answers.menu);
                 promptEngineer();
+                break;
             case 'Intern':
+                console.log('aaa');
                 promptIntern();
+                break;
             case 'Finish':
                 finish();
+                break;
         }
     }
 
@@ -117,9 +124,10 @@ function promptEngineer(){
     .then((answers)=>{
         let newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
         employeeArr.push(newEngineer)
+        console.log(employeeArr)
     })
+    .then(()=>{promptMenu()})
 
-    promptMenu()
 }
 
 function promptIntern(){
@@ -127,12 +135,14 @@ function promptIntern(){
     .then((answers)=>{
         let newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
         employeeArr.push(newIntern)
+        console.log(employeeArr)
     })
+    .then(()=>{promptMenu()})
 
-    promptMenu()
 }
 
 function generateCards(){
+    console.log(employeeArr)
     let cards = ``
     employeeArr.forEach(employee => {
         switch(employee.getRole()){
@@ -142,40 +152,42 @@ function generateCards(){
         <div class="card">
             <div class="card-header">
                 <h3>${employee.name}</h3>
-                <h4>Manager</h4>
+                <h4><i class="fas fa-mug-hot"></i> Manager</h4>
             </div>
             <div class="card-body">
-                ID:${employee.id}
+                ID: ${employee.id}
             </div>
             <div class="card-body">
-                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+                Email:<a href="mailto:${employee.email}"> ${employee.email}</a>
             </div>
             <div class="card-body">
-                Office:${employee.officeNumber}
+                Office: ${employee.officeNumber}
             </div>
         </div>
 
 `;
+                break;
             case 'Engineer':
                 cards=cards+
 `                
         <div class="card">
             <div class="card-header">
                 <h3>${employee.name}</h3>
-                <h4>Engineer</h4>
+                <h4><i class="fas fa-cogs"></i> Engineer</h4>
             </div>
             <div class="card-body">
-                ID:${employee.id}
+                ID: ${employee.id}
             </div>
             <div class="card-body">
-                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+                Email:<a href="mailto:${employee.email}"> ${employee.email}</a>
             </div>
             <div class="card-body">
-                Github:<a target="blank_" href="https://github.com/${employee.github}">${employee.github}</a>
+                Github:<a target="blank_" href="https://github.com/${employee.github}"> ${employee.github}</a>
             </div>
         </div>
 
-`;     
+`;
+            break;     
 
             case 'Intern':
                 cards=cards+
@@ -183,25 +195,32 @@ function generateCards(){
         <div class="card">
             <div class="card-header">
                 <h3>${employee.name}</h3>
-                <h4>Engineer</h4>
+                <h4><i class="fas fa-user-graduate"></i> Intern</h4>
             </div>
             <div class="card-body">
-                ID:${employee.id}
+                ID: ${employee.id}
             </div>
             <div class="card-body">
-                Email:<a href="mailto:${employee.email}">${employee.email}</a>
+                Email: <a href="mailto:${employee.email}"> ${employee.email}</a>
             </div>
             <div class="card-body">
-                School:${employee.school}
+                School: ${employee.school}
             </div>
         </div>
 
-`;     
+`;
+            break;     
         }
     })
+    return cards
 }
 
-let content = 
+
+function finish(){
+
+    var htmlcards = generateCards()
+
+    let content = 
 `
 <!DOCTYPE html>
 <html lang="en">
@@ -211,6 +230,7 @@ let content =
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <title>Team Profile</title>
 </head>
 <body>
@@ -219,56 +239,7 @@ let content =
     </header>
 
     <main class="container">
-                
-        <div class="card">
-            <div class="card-header">
-                <h3>Name</h3>
-                <h4>Manager</h4>
-            </div>
-            <div class="card-body">
-                ID:
-            </div>
-            <div class="card-body">
-                Email:
-            </div>
-            <div class="card-body">
-                Office:
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3>Name</h3>
-                <h4>Engineer</h4>
-            </div>
-            <div class="card-body">
-                ID: 1
-            </div>
-            <div class="card-body">
-                Email: <a href="mailto: yitianzhang@ucsb.edu">yitianzhang@ucsb.edu</a>
-            </div>
-            <div class="card-body">
-                Github: <a target="blank_" href="https://github.com/Tonyzyt9947">Tonyzyt9947</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3>Name</h3>
-                <h4>Intern</h4>
-            </div>
-            <div class="card-body">
-                ID:
-            </div>
-            <div class="card-body">
-                Email:
-            </div>
-            <div class="card-body">
-                School:
-            </div>
-        </div>
-
-
+${htmlcards}
     </main>
 
 
@@ -276,11 +247,8 @@ let content =
 </html>
 `
 
-function finish(){
 
-    generateCards()
-
-    fs.writeFile('index.html', content, (err) =>
+    fs.writeFile('./dist/index.html', content, (err) =>
     err ? console.error(err) : console.log('File Created')
     )
 }

@@ -1,0 +1,47 @@
+h1{
+    text-align: center;
+    color: #efefe5;
+    
+}
+
+header{
+    
+    background-color: #133e2f;
+    min-height: 150px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+body{
+    background-color: #e7e7d3;
+}
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card{
+    margin-top: 30px;
+    width: 250px;
+    box-shadow: 5px 5px 10px black;
+    margin-left: 20px;
+    margin-right: 20px;
+
+
+}
+
+.card-header{
+    background-color: #559a9e;
+    color: #efefe5;
+}
+
+.card-body{
+    border: black solid 1px;
+    margin-top:10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

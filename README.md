@@ -12,7 +12,7 @@ The application uses node.js. For download and installation procedure, see [Link
 
 ### Installing
 
-To use the application, the user should open terminal/git bash, locate the ReadmeGenerator folder, perform ```npm install``` to install the required packages (inquirer). After installation completes, user may initiate the application with command ```node index.js```.
+To use the application, the user should open terminal/git bash, locate the TeamProfileGenerator folder, perform ```npm install``` to install the required packages (inquirer). After installation completes, user may initiate the application with command ```node index.js```.
 
 <br/>
 
